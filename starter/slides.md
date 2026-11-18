@@ -254,7 +254,7 @@ TIME: 5:00–5:25 (25s)
 <IconCards :columns="4" :items="[
   { icon: '/icons/playwright-cli.webp', title: 'Playwright CLI', sub: 'For teams that already know Playwright. Stable and cheap.' },
   { icon: '/icons/playwright-mcp.webp', title: 'Playwright MCP', sub: 'For exploring locally. Convenient, but expensive in context.' },
-  { icon: '/icons/agent-browser.webp', title: 'Agent Browser', sub: 'My favourite. Snapshot with refs, built for agents.', accent: true },
+  { icon: '/icons/agent-browser.webp', title: 'Agent Browser', sub: 'My favorite. Snapshot with refs, built for agents.', accent: true },
   { icon: '/icons/computer-use.webp', title: 'Computer Use', sub: 'When there is no browser: desktop apps, legacy UIs.' },
 ]" size="lg" no-clicks />
 
@@ -385,6 +385,7 @@ TIME: 6:15–7:15 (60s)
 - For you: role and name is exactly what a **screen reader** reads out. In Playwright that is `getByRole`. That is why it works well on accessible pages and badly on pages without labels.
 - If asked: to read the totals it uses a CSS selector (`.summary__rows`), it does not work entirely without one. The snapshot also assigns numbers (`ref=e23`) that it could click directly (`click @e23`). In my run it almost always used role and name, because the names are already in the feature map. More commands: `open`, `screenshot`, `record` for the video.
 - SOURCE: commands from the local run, otto-nuxt-shop `.talk-logs/03-verify-gutschein.jsonl` (scenario 1). That run used the German UI; the control names here are the ones of the English UI (“Warenkorb” → “Cart”, “Gutscheincode” → “Coupon code”, “Einlösen” → “Redeem”, “SPAR10” → “SAVE10”). The output of `get text` is line by line in the run, here on one line and without subtotal and shipping. `agent-browser --help` (v0.38.2).
+- Snapshot lines and refs (e6, e23, e24) come from `.data/verify/evidence/SHOP-42-qa/s1-vorher.aria.txt` of the German run, names swapped to English; the refs are not re-checked against the English UI.
 -->
 
 
@@ -504,7 +505,7 @@ TIME: 8:20–8:45 (25s)
 
 <IconCards flow no-clicks :items="[
   { icon: '/icons/issue.webp', title: 'Task', sub: '“Check SHOP-42 in the browser”' },
-  { icon: '/funnel/prosa.webp', title: 'Spot the binder', sub: 'it only knows the blurb', tag: 'description' },
+  { icon: '/funnel/prosa.webp', title: 'Spot the binder', sub: 'it only reads the description', tag: 'description' },
   { icon: '/icons/launch.webp', title: 'Start the shop', sub: 'script + self-check', tag: 'launch · doctor' },
   { icon: '/icons/feature-map.webp', title: 'Look it up', sub: 'features/cart.md', accent: true },
   { icon: '/icons/evidence.webp', title: 'Click + evidence', sub: 'a screenshot per step' },
@@ -512,13 +513,13 @@ TIME: 8:20–8:45 (25s)
 
 </div>
 
-<div class="mt-8 text-center text-xl opacity-80">It only loads what it needs. Without the binder every run starts <b>from zero</b>.</div>
+<div class="mt-8 text-center text-xl opacity-80">It only loads what it needs. Without the binder every run starts <b>from scratch</b>.</div>
 
 <!--
 TIME: 8:45–9:10 (25s)
 
 - What happens when the agent gets the task “Check SHOP-42 in the browser”?
-- Of every binder it only knows the **blurb**, the description. From that it recognises: for this task I need the binder for the shop. Only then does it load it completely.
+- Of every binder it only knows the **blurb**, the description. From that it recognizes: for this task I need the binder for the shop. Only then does it load it completely.
 - It starts the shop with the script from the binder and runs a self-check: is the shop running, is there data?
 - Then it looks up the feature. For the coupon that is the page about the cart.
 - Only now does it click, and it collects a screenshot at every step.
@@ -578,8 +579,8 @@ TIME: 9:10–9:35 (25s)
 - [click] The steps from before: start, self-check, operate, save evidence and clean up. Real commands from this repo, not examples. `$V` is just the shortcut for the start script.
 - [click] All together: one manual that every agent works through the same way.
 - If asked: the agent picked port 3100 itself because 3000 was taken. `doctor` reports e.g. “ok port 3100 owned by our run”, “ok /api/products total=184”.
-- Shortened on the slide. Original: about 130 lines.
-- SOURCE: otto-nuxt-shop, `.claude/skills/verify-otto-shop/SKILL.md` (first version: commit 01f006e)
+- Shortened on the slide. Original: 134 lines.
+- SOURCE: otto-nuxt-shop `.claude/skills/verify-otto-shop/SKILL.md` on main (English version: commit 6e1362e, 134 lines; first version in German: 01f006e)
 -->
 
 ---
@@ -628,11 +629,12 @@ TIME: 9:35–10:00 (25s)
 
 - And this is one page of the feature map: the cart. Every feature gets a file like this, on the left you see home page, search, product page, wishlist.
 - Every file has the same four sections.
-- [click] **What exists?** Every sub-feature with its expected behaviour. The coupon is not in there yet. The agent adds it itself in a moment.
+- [click] **What exists?** Every sub-feature with its expected behavior. The coupon is not in there yet. The agent adds it itself in a moment.
 - [click] **How do I get there?** From the user's point of view.
 - [click] **How do I operate it?** Real commands the agent can copy.
-- [click] **Gotchas.** My favourite example: the minus button is a typographic minus, not a hyphen. Exactly the knowledge that otherwise only lives in a tester's head.
+- [click] **Gotchas.** My favorite example: the minus button is a typographic minus, not a hyphen. Exactly the knowledge that otherwise only lives in a tester's head.
 - [click] This is a test concept the agent can read.
+- The slide shows the file before the coupon existed. The agent added the coupon lines in German (`warenkorb.md`, commit b70393e); today's English `cart.md` has them translated.
 - If asked, gotchas from the search: a known bug is listed there, which the agent should report as failed instead of weakening the test. And a German word like “uhr” finds nothing, because the seed data is English. Not a bug.
 - SOURCE: otto-nuxt-shop, `.claude/skills/verify-otto-shop/features/cart.md` and `search.md` (shortened; first version in German: commit 01f006e, `warenkorb.md` and `suche.md`)
 -->
@@ -771,7 +773,7 @@ layout: statement
 
 # The same skill then does <span class="text-[#ff6bed]">QA</span>.
 
-<div class="mt-8 text-2xl opacity-80">A <b>second</b> agent that did not write the code.<br/>It does not just tick off scenarios, it also tests <b>exploratively</b>.</div>
+<div class="mt-8 text-2xl opacity-80">A <b>second</b> agent that did not write the code.<br/>It does not just tick off scenarios, it also does <b>exploratory testing</b>.</div>
 
 <!--
 TIME: 12:15–12:25 (10s)
@@ -786,7 +788,7 @@ TIME: 12:15–12:25 (10s)
 
 # Prompt 2: The <span class="text-[#ff6bed]">QA agent</span>
 
-<div class="text-sm opacity-60 -mt-2 mb-3">The real prompt, slightly shortened and translated. The pictures in a moment follow this run.</div>
+<div class="text-sm opacity-60 -mt-2 mb-3">The real prompt, slightly shortened and translated. The pictures on the next slide replay this run.</div>
 
 <div class="prompt">
   <div class="prompt__bar"><i></i><i></i><i></i><span>Claude Code · Prompt</span></div>
@@ -847,24 +849,24 @@ TIME: 12:25–13:25 (60s)
 clicks: 10
 ---
 
-# Demo: First the ticket, then <span class="text-[#ff6bed]">exploratory</span>
+# Demo: first the ticket, then <span class="text-[#ff6bed]">exploring</span>
 
 <AnnotatedStills
   class="mt-2"
   dir="/shop42"
   :step="$clicks"
   :chapters="[
-    { t: 0, text: 'Put a mascara into the cart' },
+    { t: 0, text: 'Add a mascara to the cart' },
     { t: 4, text: 'Scenario 1: redeem SAVE10 → −€0.89', kind: 'pass' },
     { t: 9, text: 'Scenario 2: NOSUCHCODE → “invalid”', kind: 'pass' },
     { t: 15, text: 'Exploratory: “ save10 ” with spaces', kind: 'pass' },
     { t: 20, text: 'Quantity 1 → 5', kind: 'bug', severity: 'major', finding: 'Discount −€0.89 instead of −€4.47' },
-    { t: 29, text: 'Redeem at 9 items, reduce to 1', kind: 'bug', severity: 'critical', finding: '−€8.05: 90 % off, not 10 %' },
+    { t: 29, text: 'Redeem with 9 items, then reduce to 1', kind: 'bug', severity: 'critical', finding: '−€8.05: 90 % off, not 10 %' },
     { t: 37, text: 'Scenario 3: remove coupon → €14.89', kind: 'pass' },
     { t: 40, text: 'Empty input and reload', kind: 'bug', severity: 'minor', finding: '“invalid” instead of “enter a code”' },
     { t: 62, text: 'Second item: a lemon for €0.71' },
-    { t: 70, text: 'Mascara out, only the lemon left', kind: 'bug', severity: 'critical', finding: 'Total −€1.39' },
-    { t: 75, text: 'Cookie set to 500', kind: 'bug', severity: 'major', finding: '−€493.34: discount unchecked' },
+    { t: 70, text: 'Remove the mascara, only the lemon is left', kind: 'bug', severity: 'critical', finding: 'Total −€1.39' },
+    { t: 75, text: 'Cookie set to 500', kind: 'bug', severity: 'major', finding: '−€493.34: discount not validated' },
   ]"
 />
 
@@ -890,12 +892,12 @@ VOICE-OVER (per picture):
 - [click] **Picture 10** “… and removes the mascara. Total: minus 1.39 euros.”
 - [click] **Picture 11** “At the end it manipulates the cookie. 500 euros discount. That would be a real price exploit.”
 
-- **Where the stills come from:** the original run was recorded by the agent itself with `agent-browser record`, against the German UI (stills of that video are in the German deck). For this deck I replayed the same steps against the English UI and captured each result with `agent-browser screenshot` (`public/shop42/00–10.webp`). Same products, same order, same amounts; only the language and the code (`SAVE10` instead of `SPAR10`) differ. The chapter times are the ones from the original video (±1 s).
+- **Where the stills come from:** the original run was recorded by the agent itself with `agent-browser record`, against the German UI (stills of that video are in the German deck). For this deck I replayed the same steps against the English UI and captured each result with `agent-browser screenshot` (`public/shop42/00–10.webp`). Same products, same order, same amounts; only the language and the code (`SAVE10` instead of `SPAR10`) differ. The chapter times are the ones from the original video (±1 s). Picture 8 does not show the message for the empty input; it is only in the report.
 -->
 
 ---
 
-# The <span class="text-[#ff6bed]">report</span> of the QA agent
+# The QA agent's <span class="text-[#ff6bed]">report</span>
 
 <div class="rep">
   <div class="rep__head">
@@ -916,10 +918,10 @@ VOICE-OVER (per picture):
     </div>
     <div>
       <div class="rep__h">Findings (exploratory)</div>
-      <div class="rep__row"><span class="pill is-crit">CRITICAL</span><b>F2</b> Discount stays high at lower quantity</div>
+      <div class="rep__row"><span class="pill is-crit">CRITICAL</span><b>F2</b> Discount stays high when quantity drops</div>
       <div class="rep__row"><span class="pill is-crit">CRITICAL</span><b>F3</b> Total becomes negative</div>
       <div class="rep__row"><span class="pill is-major">MAJOR</span><b>F1</b> Discount does not grow with quantity</div>
-      <div class="rep__row"><span class="pill is-major">MAJOR</span><b>F4</b> Discount taken unchecked from cookie</div>
+      <div class="rep__row"><span class="pill is-major">MAJOR</span><b>F4</b> Discount read from cookie without a check</div>
       <div class="rep__row"><span class="pill is-minor">MINOR</span><b>F5</b> Empty input reports “invalid”</div>
     </div>
   </div>
@@ -955,6 +957,7 @@ TIME: 14:55–15:25 (30s)
 - One dollar for a QA run that would have cost me as a human half an hour.
 - **Say it honestly:** I planted one bug on purpose: the discount is stored as a fixed amount when the coupon is redeemed. The QA agent did not know that, the commit is neutrally named “compute and store the discount when redeeming”. Out of that one bug it made four findings.
 - The report itself is in German; the slide is my translation.
+- Line number: the report says `useCoupon.ts:14` (off by one). The faulty line `amount.value = …` is 15 at commit 302bad8 and 16 on today's `feat/gutschein` (b75f02b added `SAVE10` above it).
 - SOURCE: otto-nuxt-shop commit 302bad8, docs/reports/SHOP-42-qa-report.md
 -->
 
@@ -965,7 +968,7 @@ background: /bild-gherkin.jpeg
 
 <div class="w-[42%] text-left">
 
-<h1 class="!text-[2.6rem] !leading-tight">That was in <span class="text-[#ff6bed]">no</span> <span class="whitespace-nowrap">Gherkin scenario.</span></h1>
+<h1 class="!text-[2.6rem] !leading-tight"><span class="text-[#ff6bed]">Not a single</span> <span class="whitespace-nowrap">Gherkin scenario</span> had this.</h1>
 
 <div class="mt-6 text-2xl opacity-80">Because nobody thought of it.</div>
 
@@ -1003,7 +1006,7 @@ TIME: 15:25–15:55 (30s)
   <div class="rub__row is-hit"><i class="is-high">high</i><b>State transitions</b><span>redeem → change quantity → remove item</span><em>F1 · F2 · F3</em></div>
   <div class="rub__row"><i class="is-high">high</i><b>Tampering</b><span>change the cookie by hand</span><em>F4</em></div>
   <div class="rub__row"><i class="is-high">high</i><b>Boundary values</b><span>empty input · quantity 1 · maximum quantity</span><em>F5</em></div>
-  <div class="rub__row is-open"><i class="is-mid">medium</i><b>Error case</b><span>redeeming fails on the network</span><em>not checked</em></div>
+  <div class="rub__row is-open"><i class="is-mid">medium</i><b>Error case</b><span>redeem request fails (network error)</span><em>not checked</em></div>
   <div class="rub__row is-open"><i class="is-low">low</i><b>Accessibility</b><span>tab order, labels, screen reader</span><em>not checked</em></div>
 </div>
 
@@ -1074,7 +1077,7 @@ TIME: 16:40–17:10 (30s)
 
 ---
 
-# The call is a <span class="text-[#ff6bed]">test brief</span> with guardrails
+# The command is a <span class="text-[#ff6bed]">test brief</span> with guardrails
 
 <div class="qa-cmd">
 
@@ -1132,12 +1135,13 @@ TIME: 17:10–17:45 (35s)
     <div class="urteil__h">With <code>--json-schema</code></div>
     <pre class="urteil__json">{ "passed": <b>false</b>,
   "verdict": "CRITICAL_BUGS",
-  "summary": "3 bugs: useCoupon.ts:15" }</pre>
+  "summary": "3 bugs, root cause
+              useCoupon.ts:15" }</pre>
     <div class="urteil__out is-rot"><code>passed</code> is not <code>true</code> → check red</div>
   </div>
 </div>
 
-<div v-click class="mt-6 text-center text-xl">The way to the verdict is creative. The verdict is not: nobody enters <b class="text-[#ff6bed]">“almost passed”</b>.</div>
+<div v-click class="mt-6 text-center text-xl">The path to the verdict can be creative. The verdict cannot: nobody records <b class="text-[#ff6bed]">“almost passed”</b>.</div>
 
 <style>
 .urteil { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -1162,7 +1166,7 @@ TIME: 17:45–18:10 (25s)
 - Left: an LLM normally answers in prose. “Mostly looks good, a few oddities …” Is that green or red? A pipeline cannot do anything with that. (The text on the left is an example of mine, not a real run.)
 - [click] Right: with `--json-schema` the agent has to deliver exactly this JSON, and Claude Code checks the format. `passed` is a boolean: true or false, nothing in between. After that it is a completely normal `if`: `passed` not true means `exit 1`, check red.
 - [click] The way there is creative, the verdict is a fixed value. Like in Xray: passed, failed, blocked. Nobody enters “almost passed”.
-- SOURCE: otto-nuxt-shop `.github/prompts/qa-verdict.schema.json` (commit d650193); JSON from run 42622982046 (summary translated from German)
+- SOURCE: otto-nuxt-shop `.github/prompts/qa-verdict.schema.json` (commit d650193); `passed` and `verdict` from run 42622982046; the summary is condensed by me (the real one is a long German paragraph without a line number)
 -->
 
 ---
@@ -1345,7 +1349,7 @@ TIME: 19:25–19:55 (30s)
 
 <IconCards flow :items="[
   { icon: '/jira/ticket.webp', title: 'Dev moves the ticket', sub: 'to “In QA”', tag: 'Jira' },
-  { icon: '/jira/trigger.webp', title: 'Jira sends a signal', sub: 'the status change triggers', tag: 'Jira Automation' },
+  { icon: '/jira/trigger.webp', title: 'Jira sends a signal', sub: 'the status change is the trigger', tag: 'Jira Automation' },
   { icon: '/jira/workflow.webp', title: 'Workflow starts', sub: 'the same as with the label', tag: 'GitHub Actions' },
   { icon: '/jira/agent.webp', title: 'Agent reads & tests', sub: 'ticket from Jira, then browser', tag: 'Claude Code', accent: true },
   { icon: '/jira/funde.webp', title: 'Findings into the ticket', sub: 'comment + screenshots', tag: 'Jira' },
@@ -1373,7 +1377,7 @@ TIME: 19:55–20:25 (30s)
 
 ---
 
-# The agent verifies. Whether we want it is decided by a <span class="text-[#ff6bed]">human</span>.
+# The agent verifies. A <span class="text-[#ff6bed]">human</span> decides if we want it.
 
 <div class="grenze mt-8">
   <div class="grenze__col">
@@ -1494,7 +1498,7 @@ TIME: 22:10–22:40 (30s)
     <div class="shape__tag is-now">With AI</div>
     <img src="/o-shaped/o-shaped.webp" class="shape__img" alt="O shape: a person with an AI spark inside a ring of quality (pink), code, design and product" />
     <div class="shape__name">O-shaped</div>
-    <div class="shape__sub">The strength changes with the problem. Your base stays <b>quality</b>.</div>
+    <div class="shape__sub">Your strength changes with the problem. Your base is still <b>quality</b>.</div>
   </div>
 </div>
 
@@ -1667,7 +1671,7 @@ flowchart LR
     <div class="hood__h"><code>click @e2</code></div>
     <ol>
       <li>Resolve the ref to the node ID, scroll the element into view</li>
-      <li>Measure the box, compute the <b>centre</b>, check that nothing covers it</li>
+      <li>Measure the box, compute the <b>center</b>, check that nothing covers it</li>
       <li>Real mouse events: move, press, release</li>
     </ol>
   </div>
@@ -1692,7 +1696,7 @@ Only when asked. “How does Agent Browser actually work?”
 - The daemon starts with the first command and keeps running. That is why every further command is fast, and the browser keeps cookies and tabs between commands. After one hour without a command it cleans itself up.
 - **CDP.** Programs control Chrome from the outside through the Chrome DevTools Protocol. When you press F12, the DevTools talk to the page over exactly this protocol. Playwright and Puppeteer build on it; Agent Browser leaves out the layer in between and sends the CDP commands itself. Everything on this slide (fetch the tree, measure the box, click the mouse) is a single CDP command each.
 - **snapshot:** CDP command `Accessibility.getFullAXTree`. That is the same tree a screen reader reads. Interactive roles get refs `e1`, `e2`; every ref points to the `backendNodeId` of the element. That is why it works well on accessible pages and badly on pages without labels.
-- **click @e2:** it resolves the ref to the `backendNodeId`, measures the box with `DOM.getBoxModel` and computes the centre point. Before that it checks whether another element covers it (e.g. a cookie banner). Then `Input.dispatchMouseEvent`: mouseMoved, mousePressed, mouseReleased. For the page that is a real click.
+- **click @e2:** it resolves the ref to the `backendNodeId`, measures the box with `DOM.getBoxModel` and computes the center point. Before that it checks whether another element covers it (e.g. a cookie banner). Then `Input.dispatchMouseEvent`: mouseMoved, mousePressed, mouseReleased. For the page that is a real click.
 - Playwright is not involved. Chrome comes from “Chrome for Testing”, the rest is Rust.
 - SOURCE: github.com/vercel-labs/agent-browser @4b0e9f0, README “Architecture”; cli/src/native/snapshot.rs (INTERACTIVE_ROLES, getFullAXTree), cli/src/native/element.rs (resolve_element_center, DOM.getBoxModel), cli/src/native/interaction.rs (click, dispatch_click). Installed version 0.38.2.
 -->
