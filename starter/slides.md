@@ -1443,11 +1443,11 @@ TIME: 21:40–22:10 (30s)
 
 <div class="keynote mt-6">
   <figure>
-    <div class="keynote__shot">
-      <img src="/keynote-richard.jpg" alt="Slide from Richard Seidl's keynote, in German: What we as testers are very good at. Asking, doubting, connecting." />
-      <div v-click class="keynote__fix"><i></i><b>Humans</b></div>
+    <div class="keynote__shot" role="img" aria-label="Slide from Richard Seidl's keynote, translated from German: What we testers do very well. Asking, doubting, connecting.">
+      <p class="keynote__head">What we <span class="keynote__word">testers<span v-click class="keynote__fix"><i></i><b>Humans</b></span></span> do very <em>well.</em></p>
+      <ul class="keynote__three"><li>Asking</li><li>Doubting</li><li>Connecting</li></ul>
     </div>
-    <figcaption>Richard Seidl, keynote at QS-Tag Frankfurt 2026. The slide says: “What we testers are very good at: asking, doubting, connecting.”</figcaption>
+    <figcaption>Slide from Richard Seidl's keynote at QS-Tag Frankfurt 2026, rebuilt and translated from German.</figcaption>
   </figure>
   <div class="keynote__map">
     <div><b>Asking</b><span>Acceptance criteria and charter. Without them the agent has no verdict.</span></div>
@@ -1459,11 +1459,15 @@ TIME: 21:40–22:10 (30s)
 <style>
 .keynote { display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px; align-items: center; }
 .keynote figure { margin: 0; }
-.keynote img { width: 100%; border-radius: 10px; border: 1px solid rgba(255,255,255,.15); }
-.keynote__shot { position: relative; }
-.keynote__shot img { display: block; }
-.keynote__fix i { position: absolute; left: 52.5%; top: 28%; width: 22.5%; height: 5px; border-radius: 3px; background: #ff6bed; transform: rotate(-4deg); }
-.keynote__fix b { position: absolute; left: 50%; top: 7%; font-size: 30px; line-height: 1; color: #ff6bed; transform: rotate(-4deg); text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+.keynote__shot { aspect-ratio: 16 / 10; box-sizing: border-box; padding: 0 6.5%; display: flex; flex-direction: column; justify-content: center; border-radius: 10px; border: 1px solid rgba(255,255,255,.15); background: linear-gradient(160deg, #6f6678 0%, #5f6076 55%, #66708a 100%); }
+.keynote__head { margin: 0 0 9%; font-size: 40px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; color: #fff; }
+.keynote__head em { font-style: normal; color: #ffe14a; }
+.keynote__word { position: relative; white-space: nowrap; }
+.keynote__fix i { position: absolute; left: -3%; top: 52%; width: 106%; height: 5px; border-radius: 3px; background: #ff6bed; transform: rotate(-4deg); }
+.keynote__fix b { position: absolute; left: -8%; top: -72%; font-size: 30px; line-height: 1; color: #ff6bed; transform: rotate(-4deg); text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+.keynote__three { list-style: none; margin: 0; padding: 14px 0; display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,.22); border-bottom: 1px solid rgba(255,255,255,.22); font-size: 22px; font-weight: 700; color: #fff; }
+.keynote__three li { margin: 0; padding: 0; list-style: none; }
+.keynote__three li::marker { content: none; }
 .keynote figcaption { margin-top: 8px; font-size: 13px; opacity: .6; }
 .keynote__map { display: flex; flex-direction: column; gap: 22px; }
 .keynote__map b { display: block; font-size: 26px; color: #ff6bed; }
@@ -1473,14 +1477,14 @@ TIME: 21:40–22:10 (30s)
 <!--
 TIME: 22:10–22:40 (30s)
 
-- “I first gave this talk at QS-Tag in Frankfurt. That morning Richard Seidl showed this slide in his keynote. I took a photo, because it hits my answer better than my own slide.”
-- Translate it: “Was wir als Tester sehr gut können: Fragen, Zweifeln, Verbinden” = “What we testers are very good at: asking, doubting, connecting”.
-- [click] “I would change one word.” Strike out “Tester”, write **Humans** above it. “Not only testers can do this. We all can, if we take the time for it.”
+- “I first gave this talk at QS-Tag in Frankfurt. That morning Richard Seidl showed this slide in his keynote. It hits my answer better than my own slide, so I rebuilt it in English.”
+- Original, in German: “Was wir als Tester sehr gut können: Fragen, Zweifeln, Verbinden”.
+- [click] “I would change one word.” Strike out “testers”, write **Humans** above it. “Not only testers can do this. We all can, if we take the time for it.”
 - **Asking:** the agent only tests as well as the acceptance criteria and the charter. You write those.
 - **Doubting:** the agent reports CRITICAL_BUGS. Whether that is right and whether we ship anyway is decided by someone who can doubt.
 - **Connecting:** whoever brings domain knowledge, testing and technology together builds such pipelines. That leads to the next slide.
 - “Exactly these three things the agent cannot do. The rest I am happy to take off your hands.”
-- SOURCE: Richard Seidl, keynote “Testen ist People Business. Erst recht mit KI.” (“Testing is people business. Even more so with AI.”), Software-QS-Tag, 11 Nov 2026, 09:15 (qs-tag.de/programm/11-11-2026). Photo by me.
+- SOURCE: Richard Seidl, keynote “Testen ist People Business. Erst recht mit KI.” (“Testing is people business. Even more so with AI.”), Software-QS-Tag, 11 Nov 2026, 09:15 (qs-tag.de/programm/11-11-2026). The slide here is my rebuild in English, not his original; my photo of the original is in the German deck.
 -->
 
 ---
